@@ -1,0 +1,1285 @@
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.icbc.cardry</groupId>
+    <!-- 项目唯一标识 有子pom文件的时候parent的groupId就是这个 -->
+    <artifactId>Cardry</artifactId>
+    <!-- artifactId: 指定工程名 -->
+    <packaging>pom</packaging>
+    <!-- packaging: 打包的机制，如pom, jar, maven-plugin, ejb, war, ear, rar, par -->
+    <version>1.0</version>
+
+    <!-- 一些项目相关的信息 -->
+    <name>cardry</name>
+    <url>http://maven.apache.org</url>
+
+    <!--首要条件，如果不满足，maven会在事件开始之前失败，在pom4.0，唯一的首要条件是maven元素-->
+    <prerequisites>
+        <maven>3.0.4</maven>
+    </prerequisites>
+
+    <!-- 注册licenses -->
+    <licenses>
+        <license>
+            <name>Apache 2</name>
+            <url>http://www.igoldcane.com/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <!--
+        - scm(software configuration management)标签允许你配置你的代码库，为Maven
+        web站点和其它插件使用。 - 如果你正在使用CVS或Subversion，source
+        repository页面同样能给如何使用代码库的详细的、工具相关的指令。 - 下面是一个典型SCM的配置例子
+    -->
+	
+    <!-- 插件下载地址 pluginRepositories是plugins的home-->
+    <pluginRepositories>
+      
+        <pluginRepository>
+            <id>Central Repository</id>
+            <url>http://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <!-- 模块配置 -->
+    <modules>
+        <module>common</module>
+        <module>domain</module>
+        <module>web</module>
+		<module>modules</module>
+    </modules>
+
+    <!-- 依赖项 -->
+    <!--
+          scope 说明 -
+          compile ：默认范围，用于编译 -
+          provided：类似于编译，但支持你期待jdk或者容器提供，类似于classpath - runtime: 在执行时，需要使用 -
+          test: 用于test任务时使用 -
+          system: 需要外在提供相应得元素。通过systemPath来取得 -
+          systemPath: 仅用于范围为system。提供相应的路径 - optional:
+          标注可选，当项目自身也是依赖时。用于连续依赖时使用
+          exclusions 说明 -
+          排除jar冲突
+      -->
+    <dependencies>
+        <!-- ******************************spring**************************start**************************************************** -->
+        <!-- sprin核心包 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- spring 创建beans -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- WebApplicationContext依赖包 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-context</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>aopalliance</artifactId>
+                    <groupId>aopalliance</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-context-support</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-web</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <artifactId>spring-web</artifactId>
+            <groupId>org.springframework</groupId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>aopalliance</artifactId>
+                    <groupId>aopalliance</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-context</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <artifactId>spring-context</artifactId>
+            <groupId>org.springframework</groupId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>aopalliance</artifactId>
+                    <groupId>aopalliance</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- spring 依赖包 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>aopalliance</artifactId>
+                    <groupId>aopalliance</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-context</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- spring aop依赖包 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>aopalliance</artifactId>
+                    <groupId>aopalliance</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <artifactId>aopalliance</artifactId>
+            <groupId>aopalliance</groupId>
+            <version>1.0</version>
+        </dependency>
+        <!-- ftp 依赖包 -->
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-ftp</artifactId>
+            <version>2.2.6.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-net</groupId>
+                    <artifactId>commons-net</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context-support</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-asm</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-context</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>aopalliance</artifactId>
+                    <groupId>aopalliance</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-expression</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.integration</groupId>
+                    <artifactId>spring-integration-file</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.integration</groupId>
+                    <artifactId>spring-integration-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.retry</groupId>
+                    <artifactId>spring-retry</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-tx</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- 动态代理 依赖包 
+        <dependency>
+            <groupId>cglib-nodep</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>2.2</version>
+        </dependency>-->
+        <!-- ******************************spring**************************end****************************************************** -->
+
+        <!-- servlet核心包 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 计划任务-->
+       <dependency>
+			<groupId>org.opensymphony.quartz</groupId>
+			<artifactId>quartz</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+
+
+        <!-- ******************************struts2**************************start*************************************************** -->
+        <!-- struts2核心包 -->
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-core</artifactId>
+            <version>${struts.version}</version>
+            <exclusions>
+                <!-- 这里会继承依赖 xwork包 -->
+                <exclusion>
+                    <artifactId>xwork-core</artifactId>
+					<groupId>org.apache.struts.xwork</groupId>  
+                </exclusion>
+                <exclusion>
+                    <artifactId>freemarker</artifactId>
+                    <groupId>freemarker</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>ognl</artifactId>
+                    <groupId>ognl</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>tools</artifactId>
+                    <groupId>com.sun</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 核心包需要依赖 xwork包 -->
+        <dependency>
+			<artifactId>xwork-core</artifactId>
+			<groupId>org.apache.struts.xwork</groupId>  
+            <version>2.3.15.1</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>ognl</artifactId>
+                    <groupId>ognl</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- 对像序列化xml -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.3</version>
+        </dependency>
+        <!-- 核心包需要依赖 freemarker包 -->
+        <dependency>
+            <artifactId>freemarker</artifactId>
+            <groupId>freemarker</groupId>
+            <version>2.3.8</version>
+        </dependency>
+        <!-- 核心包需要依赖 ognl包 -->
+        <dependency>
+            <artifactId>ognl</artifactId>
+            <groupId>ognl</groupId>
+            <version>3.0.6</version>
+        </dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.11.0.GA</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.5</version>
+		</dependency>
+
+        <!-- struts2和spring整合 依赖包 -->
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-spring-plugin</artifactId>
+            <version>${struts.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>org.apache.log4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-context</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>aopalliance</artifactId>
+                    <groupId>aopalliance</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-web</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>struts-menu</groupId>
+            <artifactId>struts-menu</artifactId>
+            <version>${struts.menu.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-beanutils</artifactId>
+                    <groupId>commons-beanutils</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-collections</artifactId>
+                    <groupId>commons-collections</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-digester</artifactId>
+                    <groupId>commons-digester</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xml-apis</artifactId>
+                    <groupId>xml-apis</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-lang</artifactId>
+                    <groupId>commons-lang</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>velocity-tools-view</artifactId>
+                    <groupId>velocity-tools</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-json-plugin</artifactId>
+			<version>2.3.7</version>
+		</dependency>
+
+        <!-- ******************************struts2**************************end***************************************************** -->
+
+        <!-- ******************************velocity**************************start************************************************** -->
+        <!-- velocity 依赖包 -->
+        <dependency>
+            <groupId>velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>${velocity.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-collections</artifactId>
+                    <groupId>commons-collections</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-lang</artifactId>
+                    <groupId>commons-lang</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>oro</artifactId>
+                    <groupId>oro</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>velocity-tools</groupId>
+            <artifactId>velocity-tools</artifactId>
+            <version>${velocity-tools.version}</version>
+        </dependency>
+        <!-- ******************************velocity**************************end**************************************************** -->
+
+        <!-- ******************************log**************************start******************************************************* -->
+        <!-- 单元测试依赖jar包 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- spring 整合junit依赖包 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>junit</artifactId>
+                    <groupId>junit</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 日志依赖包 -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <!-- 解决log4j.xml中文路径 
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.xerces</artifactId>
+            <version>2.11.0_1</version>
+        </dependency>-->
+        <!-- xerces的依赖包 -->
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.4.01</version>
+        </dependency>
+        <!-- dbunit单元测试 -->
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>2.4.7</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-collections</groupId>
+                    <artifactId>commons-collections</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+        <!-- ******************************log**************************end********************************************************* -->
+
+        <!-- ******************************banger-framework****************start**************************************************** -->
+        <dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.0</version>
+		</dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+     
+	 <!--   <dependency>
+            <groupId>jta</groupId>
+            <artifactId>jta</artifactId>
+            <version>2.0</version>
+        </dependency>
+	<dependency>
+            <groupId>jai_core</groupId>
+			<artifactId>jai_core</artifactId>
+			<version>1.0</version>
+        </dependency>
+
+		<dependency>
+            <groupId>sun_codec</groupId>
+			<artifactId>sun_codec</artifactId>
+			<version>1.0</version>
+        </dependency>
+
+		<dependency>
+			<groupId>mlibwrapper_jai</groupId>
+			<artifactId>mlibwrapper_jai</artifactId>
+			<version>1.0</version>
+		</dependency> -->
+
+		<!-- OCR图像识别包 -->
+		<dependency>
+			<groupId>swingx</groupId>
+			<artifactId>swingx</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>jai_imageio</groupId>
+			  <artifactId>jai_imageio</artifactId>
+			<version>1.1</version>
+		</dependency>
+		
+		<!-- httpclient网页抓取包 -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>  
+				<artifactId>httpclient</artifactId>  
+			<version>4.4</version> 
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>  
+				<artifactId>httpcore</artifactId>  
+			<version>4.4</version>  
+		</dependency>
+
+		<dependency>
+			<groupId>org.htmlparser</groupId>
+			<artifactId>htmlparser</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.apache.httpcomponents</groupId>
+		  <artifactId>httpmime</artifactId>
+		  <version>4.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.james</groupId>
+			<artifactId>apache-mime4j</artifactId>
+			<version>0.6</version>
+		</dependency>
+
+		
+		<!-- Ehcache -->  
+		<dependency>  
+		    <groupId>net.sf.ehcache</groupId>  
+		    <artifactId>ehcache</artifactId>  
+		    <version>2.8.3</version>  
+		</dependency>  
+		<dependency>  
+		    <groupId>net.sf.ehcache</groupId>  
+		    <artifactId>ehcache-core</artifactId>  
+		    <version>2.4.3</version>  
+		</dependency>  
+
+        <!-- spring和数据库 关联包 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>aopalliance</artifactId>
+                    <groupId>aopalliance</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-context</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-tx</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <artifactId>spring-tx</artifactId>
+            <groupId>org.springframework</groupId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>aopalliance</artifactId>
+                    <groupId>aopalliance</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-context</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- jdbc 关联包 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-context</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>aopalliance</artifactId>
+                    <groupId>aopalliance</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-tx</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+		<!--  mysql驱动 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+		  <!--  oracle驱动 -->
+        <dependency>
+            <groupId>classes12</groupId>
+            <artifactId>classes12</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-pool</groupId>
+                    <artifactId>commons-pool</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>commons-pool</groupId>
+            <artifactId>commons-pool</artifactId>
+            <version>1.6</version>
+        </dependency>
+        <!--  ftp析有关-->
+        <dependency>
+            <groupId>ftp4j</groupId>
+            <artifactId>ftp4j</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+
+		<!-- 上上签有关jar -->
+		<dependency>
+		  <groupId>json-sign</groupId>
+		  <artifactId>json-sign</artifactId>
+		  <version>1.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>alipay</groupId>
+		  <artifactId>alipay</artifactId>
+		  <version>1.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>checksum</groupId>
+		  <artifactId>checksum-compute</artifactId>
+		  <version>0.2.0</version>
+		</dependency>
+
+        <!-- ******************************banger-framework****************end****************************************************** -->
+
+
+        <!-- ******************************common**************************start**************************************************** -->
+        <!--   <dependency>
+            <groupId>ueditor</groupId>
+            <artifactId>ueditor</artifactId>
+            <version>1.1.1</version>
+        </dependency>-->
+        <!-- 通用工具依赖包 -->
+        <dependency>
+            <groupId>com.hundsun.bible</groupId>
+            <artifactId>bible-common-lang</artifactId>
+            <version>${bible.common.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
+        </dependency>
+		<dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons.lang.version}</version>
+        </dependency>
+           <!--  <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>-->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>backport-util-concurrent</groupId>
+            <artifactId>backport-util-concurrent-java12</artifactId>
+            <version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>2.1</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-beanutils</artifactId>
+                    <groupId>commons-beanutils</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency> 
+        <dependency>
+			<groupId>commons-discovery</groupId>
+			<artifactId>commons-discovery</artifactId>
+			<version>0.2</version>
+		</dependency>
+        <!-- json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20090211</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.4</version>
+			<classifier>jdk15</classifier>
+        </dependency>
+		<dependency>
+            <groupId>net.sf.ezmorph</groupId>
+            <artifactId>ezmorph</artifactId>
+            <version>1.0.6</version>
+			<!--
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-lang</artifactId>
+                    <groupId>commons-lang</groupId>
+                </exclusion>
+            </exclusions>-->
+        </dependency> 
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.8.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+      <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.3</version>
+        </dependency>
+        <!-- 缓存 -->
+        <dependency>
+			<groupId>opensymphony</groupId>
+			<artifactId>oscache</artifactId>
+			<version>2.3</version>
+		</dependency>
+		<dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!--  WPS,2007版本导入 -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.8</version>
+        </dependency>
+       <dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.8</version>
+		</dependency>
+       <dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi-ooxml-schemas</artifactId>
+		<version>3.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>1.8.2</version>
+		</dependency>
+
+       <dependency>
+			<groupId>org.apache.xmlbeans</groupId>
+			<artifactId>xmlbeans</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>  
+			<groupId>bcprov-jdk14</groupId>  
+			<artifactId>bcprov-jdk14</artifactId>  
+			<version>123</version>  
+		</dependency> 
+
+		<dependency>
+		  <groupId>pd4ml</groupId>
+		  <artifactId>pd4ml</artifactId>
+		  <version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+		  <groupId>ss_css2</groupId>
+		  <artifactId>ss_css2</artifactId>
+		  <version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+		  <groupId>fonts</groupId>
+		  <artifactId>fonts</artifactId>
+		  <version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+		  <groupId>activation</groupId>
+		  <artifactId>activation</artifactId>
+		  <version>1.1</version>
+		</dependency>
+
+		<dependency>
+		  <groupId>mail</groupId>
+		  <artifactId>mail</artifactId>
+		  <version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk16</artifactId>
+			<version>1.46</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.jpush.api</groupId>
+			<artifactId>jpush-client</artifactId>
+			<version>3.2.9</version>
+		</dependency>
+
+		<!-- im4j图片压缩 -->
+		<dependency>
+			<groupId>org.im4java</groupId>
+			<artifactId>im4java</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+
+		<!-- zip4j -->
+		<dependency>
+		  <groupId>zip4j</groupId>
+		  <artifactId>zip4j</artifactId>
+		  <version>1.3.1</version>
+		</dependency>
+
+		<!-- pinyin4j -->
+		<dependency>
+		  <groupId>pinyin4j</groupId>
+		  <artifactId>pinyin4j</artifactId>
+		  <version>2.5.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-actor_2.11</artifactId>
+			<version>2.3.15</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.10.19</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- 系统核心包 -->
+		<dependency>
+		  <groupId>core.framework</groupId>
+		  <artifactId>core-framework-component</artifactId>
+		  <version>1.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>core.framework</groupId>
+		  <artifactId>core-framework-core</artifactId>
+		  <version>1.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>core.framework</groupId>
+		  <artifactId>core-framework-dao</artifactId>
+		  <version>1.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>core.framework</groupId>
+		  <artifactId>core-framework-sql</artifactId>
+		  <version>1.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>core.framework</groupId>
+		  <artifactId>core-framework-util</artifactId>
+		  <version>1.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>core.framework</groupId>
+		  <artifactId>core-framework-web</artifactId>
+		  <version>1.0</version>
+		</dependency>
+
+		<!-- 阿里云相关核心包 -->
+		<dependency>
+		  <groupId>aliyun.sdk.core</groupId>
+		  <artifactId>aliyun-java-sdk-core</artifactId>
+		  <version>2.1.7</version>
+		</dependency>
+		<dependency>
+		  <groupId>aliyun.sdk.oss</groupId>
+		  <artifactId>aliyun-sdk-oss</artifactId>
+		  <version>2.2.3</version>
+		</dependency>
+		<dependency>
+		  <groupId>aliyun.sdk.sts</groupId>
+		  <artifactId>aliyun-java-sdk-sts</artifactId>
+		  <version>2.1.6</version>
+		</dependency>
+    </dependencies>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <finalName>CRADRY-Webapp-1.0</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>	
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>	
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<projectNameTemplate>
+						[artifactId]-[version]
+					</projectNameTemplate>
+					<wtpmanifest>true</wtpmanifest>
+					<wtpapplicationxml>true</wtpapplicationxml>
+					<wtpversion>2.0</wtpversion>
+					<wtpContextName>ROOT</wtpContextName>
+				</configuration>
+			</plugin>
+        </plugins>
+    </build>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry</groupId>
+				<artifactId>Cardry-web</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry</groupId>
+				<artifactId>Cardry-domain</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry</groupId>
+				<artifactId>Cardry-common</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry.modules</groupId>
+				<artifactId>desktop</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry.modules</groupId>
+				<artifactId>permission</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry.modules</groupId>
+				<artifactId>system</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry.modules</groupId>
+				<artifactId>loan</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry.modules</groupId>
+				<artifactId>transport</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry.modules</groupId>
+				<artifactId>report</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry.modules</groupId>
+				<artifactId>message</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry.modules</groupId>
+				<artifactId>external</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry.modules</groupId>
+				<artifactId>check</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry.modules</groupId>
+				<artifactId>4shop</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry.modules</groupId>
+				<artifactId>4shopIntf</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry.modules</groupId>
+				<artifactId>bank</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.icbc.cardry.Cardry.modules</groupId>
+				<artifactId>systemIntf</artifactId>
+				<version>${version}</version>
+			</dependency>
+    </dependencies>
+  </dependencyManagement>
+    <properties>
+        <!-- plugins Parameter -->
+
+        <!-- dependency Parameter -->
+        <junit.version>4.4</junit.version>
+        <commons.io.version>2.4</commons.io.version>
+        <commons.net.version>2.0</commons.net.version>
+        <commons.beanutils.version>1.7.0</commons.beanutils.version>
+        <commons.lang.version>2.3</commons.lang.version>
+        <commons.jexl.versionn>1.1</commons.jexl.versionn>
+        <apache.ws.commons.version>1.1</apache.ws.commons.version>
+        <spring.version>2.5.6</spring.version>
+        <ibatis.version>2.3.0</ibatis.version>
+        <servlet.version>2.4</servlet.version>
+        <struts.version>2.3.15.1</struts.version>
+        <bible.common.version>1.0</bible.common.version>
+        <velocity.version>1.5</velocity.version>
+        <velocity-tools.version>1.4</velocity-tools.version>
+        <struts.menu.version>2.4.3</struts.menu.version>
+        <xfire.version>1.2.6</xfire.version>
+        <commons.fileupload.version>1.2.1</commons.fileupload.version>
+
+        <!-- project Parameter -->
+        <log4j.version>1.2.13</log4j.version>
+        <jdbc.version>10.2.0.2.0</jdbc.version>
+
+
+        <!-- file upload Parameter
+        <upload.uploadDir>d:/banger/mobile</upload.uploadDir>
+        <upload.infoImageMaxSize>512000</upload.infoImageMaxSize>
+        <upload.rootPath>uploadFiles</upload.rootPath>
+		-->
+
+        <log.dir>/home/log/cardry/</log.dir>
+        <log.level>error</log.level>
+        <dao.level>error</dao.level>
+    </properties>
+</project>
